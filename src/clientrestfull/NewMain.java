@@ -19,10 +19,15 @@ public class NewMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Vista n = new Vista();
+        
+        Modelo m = new Modelo();
         JFrame f = new JFrame();
+        m.recuperarAlumnos();
+        Vista v = new Vista();
+        v.setData(m.getData());
+        v.cargarTabla();
         //n.setVisible(true);
-        f.add(n);
+        f.add(v);
         f.setSize(700, 400);
         f.setVisible(true);
         f.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -13,18 +13,34 @@ import javax.swing.table.DefaultTableModel;
  * @author lasergun
  */
 public class Vista extends javax.swing.JPanel {
-
+    private DefaultTableModel modelo;
+    private Vector data;
     /**
      * Creates new form NewJPanel
      */
     public Vista() {
         initComponents();
         
-        DefaultTableModel modelo = (DefaultTableModel) this.table.getModel();
-        
-        modelo.addRow(new Object[] {
-            "1","Ruben","García","Málaga","Sistemas","10"
-        });
+        modelo = (DefaultTableModel) this.table.getModel();
+        //cargarTabla();
+//        
+//        modelo.addRow(new Object[] {
+//            "1","Ruben","García","Málaga","Sistemas","10"
+//        });
+    }
+
+    public Vector getData() {
+        return data;
+    }
+
+    public void setData(Vector data) {
+        this.data = data;
+    }
+    
+    public void cargarTabla() {
+        for (int i = 0; i < data.size(); i++) {
+            modelo.addRow((Object [])data.get(i));
+        }
     }
 
     /**

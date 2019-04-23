@@ -5,19 +5,33 @@ import javax.xml.parsers.*;
 import org.xml.sax.InputSource;
 import org.w3c.dom.*;
 import java.io.*;
+import java.util.Vector;
 
 public class Modelo {
-   private NewJerseyClient client = new NewJerseyClient();        
+    private NewJerseyClient client;
+    private Vector data;
+
+    public Modelo() {
+        this.client = new NewJerseyClient();
+        this.data = new Vector();
+    }
+
+    public Vector getData() {
+        return data;
+    }
+
+    public void setData(Vector data) {
+        this.data = data;
+    }
    
-   
-//    public static void main(String[] args) {
-//        ClientRestFull c = new ClientRestFull();
+    public static void main(String[] args) {
+        Modelo c = new Modelo();
 //        
 //        c.buscarAlumno("1");
         //String xml = client.findAll_XML(String.class);
         //c.registrar();
         //System.out.println(xml);
-        //c.recuperarAlumnos();
+        c.recuperarAlumnos();
 //        client.edit_XML("<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
 //            "   <alumnos> \n" +
 //            "   <apellidoMaterno>"+"Málaga"+"</apellidoMaterno> \n" +
@@ -28,7 +42,7 @@ public class Modelo {
 //            "       <semestre>"+"10"+"</semestre> \n" +
 //            "   </alumnos> ", "1");
 //        client.remove("3");
-    //}
+    }
     
 //    public void registrar(){
 //        System.out.println("Ingresa tu nombre: ");
@@ -146,30 +160,38 @@ public class Modelo {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Element element = (Element) nodes.item(i);
 
-                NodeList idAlumnos = element.getElementsByTagName("idAlumnos");
-                Element line = (Element) idAlumnos.item(0);
+                NodeList nodo = element.getElementsByTagName("idAlumnos");
+                Element line = (Element) nodo.item(0);
                 System.out.println("idAlumno: " + getCharacterDataFromElement(line));
+                String idAlumnos = getCharacterDataFromElement(line);
 
-                NodeList nombre = element.getElementsByTagName("nombre");
-                line = (Element) nombre.item(0);
+                nodo = element.getElementsByTagName("nombre");
+                line = (Element) nodo.item(0);
                 System.out.println("Nombre: " + getCharacterDataFromElement(line));
+                String nombre = getCharacterDataFromElement(line);
 
-                NodeList apellidoPaterno = element.getElementsByTagName("apellidoPaterno");
-                line = (Element) apellidoPaterno.item(0);
+                nodo = element.getElementsByTagName("apellidoPaterno");
+                line = (Element) nodo.item(0);
                 System.out.println("Apellido Paterno: " + getCharacterDataFromElement(line));
+                String apellidoPaterno = getCharacterDataFromElement(line);
 
-                NodeList apellidoMaterno = element.getElementsByTagName("apellidoMaterno");
-                line = (Element) apellidoMaterno.item(0);
+                nodo = element.getElementsByTagName("apellidoMaterno");
+                line = (Element) nodo.item(0);
                 System.out.println("Apellido Materno: " + getCharacterDataFromElement(line));
+                String apellidoMaterno = getCharacterDataFromElement(line);
 
-                NodeList carrera = element.getElementsByTagName("carrera");
-                line = (Element) carrera.item(0);
+                nodo = element.getElementsByTagName("carrera");
+                line = (Element) nodo.item(0);
                 System.out.println("Carrera: " + getCharacterDataFromElement(line));
+                String carrera = getCharacterDataFromElement(line);
 
-                NodeList semestre = element.getElementsByTagName("semestre");
-                line = (Element) semestre.item(0);
+                nodo = element.getElementsByTagName("semestre");
+                line = (Element) nodo.item(0);
                 System.out.println("Semestre: " + getCharacterDataFromElement(line));
+                String semestre = getCharacterDataFromElement(line);
                 System.out.println("---------------------");
+                
+                this.data.add(new Object[]{idAlumnos, nombre, apellidoPaterno, apellidoMaterno, carrera, semestre});
             }
         }
         catch (Exception e) {
