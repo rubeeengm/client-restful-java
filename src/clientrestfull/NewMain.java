@@ -22,6 +22,7 @@ public class NewMain {
         
         Modelo m = new Modelo();
         JFrame f = new JFrame();
+        //m.eliminar("11");
         m.recuperarAlumnos();
         Vista v = new Vista();
         v.setData(m.getData());

@@ -38,9 +38,15 @@ public class Vista extends javax.swing.JPanel {
     }
     
     public void cargarTabla() {
+        modelo.setRowCount(0);
+        
         for (int i = 0; i < data.size(); i++) {
-            modelo.addRow((Object [])data.get(i));
+            modelo.addRow((Object []) data.get(i));
         }
+        
+        
+//        Vector objeto = (Vector) this.modelo.getDataVector().get(0);
+//        System.out.println(objeto.get(1));
     }
 
     /**
