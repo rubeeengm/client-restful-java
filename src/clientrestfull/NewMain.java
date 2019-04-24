@@ -5,6 +5,7 @@
  */
 package clientrestfull;
 
+import itver.edu.NewJerseyClient;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -23,6 +24,18 @@ public class NewMain {
         Modelo m = new Modelo();
         JFrame f = new JFrame();
         //m.eliminar("11");
+        m.client = new NewJerseyClient();
+        
+        m.client.edit_XML("<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
+            "   <alumnos> \n" +
+            "   <apellidoMaterno>"+"Málaga"+"</apellidoMaterno> \n" +
+            "       <apellidoPaterno>"+"Ponce"+"</apellidoPaterno> \n" +
+            "       <carrera>"+"Ing. Sistemas"+"</carrera> \n" +
+            "       <idAlumnos>"+"13"+"</idAlumnos> \n" +
+            "       <nombre>"+"Ruben"+"</nombre> \n" +
+            "       <semestre>"+"10"+"</semestre> \n" +
+            "   </alumnos> ", "13");
+                
         m.recuperarAlumnos();
         Vista v = new Vista();
         v.setData(m.getData());

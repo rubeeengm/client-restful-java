@@ -10,17 +10,26 @@ package clientrestfull;
  * @author lasergun
  */
 public class Alumno {
-    private String nombre, apellidoPaterno, apellidoMaterno, carrera, semestre;
+    private String idAlumno, nombre, apellidoPaterno, apellidoMaterno, carrera, semestre;
 
     public Alumno() {
     }
 
-    public Alumno(String nombre, String apellidoPaterno, String apellidoMaterno, String carrera, String semestre) {
+    public Alumno(String idAlumno, String nombre, String apellidoPaterno, String apellidoMaterno, String carrera, String semestre) {
+        this.idAlumno = idAlumno;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.carrera = carrera;
         this.semestre = semestre;
+    }
+    
+    public String getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(String idAlumno) {
+        this.idAlumno = idAlumno;
     }
     
     public String getNombre() {
