@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientrestfull;
+package modelo;
 
 /**
  *
@@ -15,6 +15,14 @@ public class Alumno {
     public Alumno() {
     }
 
+    public Alumno(String nombre, String apellidoPaterno, String apellidoMaterno, String carrera, String semestre) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.carrera = carrera;
+        this.semestre = semestre;
+    }
+    
     public Alumno(String idAlumno, String nombre, String apellidoPaterno, String apellidoMaterno, String carrera, String semestre) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;

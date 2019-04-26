@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package clientrestfull;
+package vista;
 
 import java.util.Vector;
 import javax.swing.JButton;
@@ -11,20 +6,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author lasergun
- */
 public class Vista extends javax.swing.JPanel {
     private DefaultTableModel modelo;
     private Vector data;
-    /**
-     * Creates new form NewJPanel
-     */
+
     public Vista() {
         initComponents();
         
-        modelo = (DefaultTableModel) this.table.getModel();
+        //modelo = (DefaultTableModel) this.table.getModel();
         //cargarTabla();
 //        
 //        modelo.addRow(new Object[] {
@@ -36,51 +25,17 @@ public class Vista extends javax.swing.JPanel {
         return modelo;
     }
 
-    public void setModelo(DefaultTableModel modelo) {
-        this.modelo = modelo;
-    }
-
     public JButton getBtnActualizar() {
         return btnActualizar;
-    }
-
-    public void setBtnActualizar(JButton btnActualizar) {
-        this.btnActualizar = btnActualizar;
     }
 
     public JButton getBtnCrear() {
         return btnCrear;
     }
 
-    public void setBtnCrear(JButton btnCrear) {
-        this.btnCrear = btnCrear;
-    }
-
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
-
-    public void setBtnEliminar(JButton btnEliminar) {
-        this.btnEliminar = btnEliminar;
-    }
-
-    public JScrollPane getScrollPane() {
-        return scrollPane;
-    }
-
-    public void setScrollPane(JScrollPane scrollPane) {
-        this.scrollPane = scrollPane;
-    }
-
-    public JTable getTable() {
-        return table;
-    }
-
-    public void setTable(JTable table) {
-        this.table = table;
-    }
-    
-    
 
     public Vector getData() {
         return data;
@@ -89,14 +44,25 @@ public class Vista extends javax.swing.JPanel {
     public void setData(Vector data) {
         this.data = data;
     }
+
+    public JTable getTable() {
+        return table;
+    }
     
     public void cargarTabla() {
+        modelo = (DefaultTableModel) this.table.getModel();
+        //table.removeAll();
+        //modelo = (DefaultTableModel) this.table.getModel();
         modelo.setRowCount(0);
+        //System.out.println(modelo.getRowCount());
         
         for (int i = 0; i < data.size(); i++) {
             modelo.addRow((Object []) data.get(i));
         }
         
+        //modelo.setRowCount(0);
+        //table = null;
+        //modelo = (DefaultTableModel) this.table.getModel();
         
 //        Vector objeto = (Vector) this.modelo.getDataVector().get(0);
 //        System.out.println(objeto.get(1));
@@ -119,6 +85,8 @@ public class Vista extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(700, 400));
 
+        scrollPane.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -130,9 +98,16 @@ public class Vista extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         scrollPane.setViewportView(table);
@@ -169,8 +144,8 @@ public class Vista extends javax.swing.JPanel {
                     .addComponent(btnActualizar)
                     .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
     }// </editor-fold>//GEN-END:initComponents
 

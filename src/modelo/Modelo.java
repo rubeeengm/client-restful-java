@@ -1,4 +1,4 @@
-package clientrestfull;
+package modelo;
 
 import itver.edu.NewJerseyClient;
 import javax.xml.parsers.*;
@@ -62,6 +62,7 @@ public class Modelo {
     
     public void recuperarAlumnos(){
         this.client = new NewJerseyClient();
+        data.removeAllElements();
         String data = client.findAll_XML(String.class);
         
         try {
@@ -118,7 +119,9 @@ public class Modelo {
     }
     
     public void eliminar(String id) {
+        this.client = new NewJerseyClient();
         client.remove(id);
+        client.close();
     }
     
     public static String getCharacterDataFromElement(Element e) {
