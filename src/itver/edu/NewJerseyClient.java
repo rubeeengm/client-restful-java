@@ -26,7 +26,7 @@ public class NewJerseyClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/ServerRestFull/webresources";
+    private static final String BASE_URI = "http://localhost:8080/ServerRestFul/webresources";
 
     public NewJerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

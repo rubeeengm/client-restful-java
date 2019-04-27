@@ -2,7 +2,6 @@ package vista;
 
 import java.util.Vector;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,13 +11,6 @@ public class Vista extends javax.swing.JPanel {
 
     public Vista() {
         initComponents();
-        
-        //modelo = (DefaultTableModel) this.table.getModel();
-        //cargarTabla();
-//        
-//        modelo.addRow(new Object[] {
-//            "1","Ruben","García","Málaga","Sistemas","10"
-//        });
     }
 
     public DefaultTableModel getModelo() {
@@ -51,21 +43,11 @@ public class Vista extends javax.swing.JPanel {
     
     public void cargarTabla() {
         modelo = (DefaultTableModel) this.table.getModel();
-        //table.removeAll();
-        //modelo = (DefaultTableModel) this.table.getModel();
         modelo.setRowCount(0);
-        //System.out.println(modelo.getRowCount());
         
         for (int i = 0; i < data.size(); i++) {
             modelo.addRow((Object []) data.get(i));
         }
-        
-        //modelo.setRowCount(0);
-        //table = null;
-        //modelo = (DefaultTableModel) this.table.getModel();
-        
-//        Vector objeto = (Vector) this.modelo.getDataVector().get(0);
-//        System.out.println(objeto.get(1));
     }
 
     /**

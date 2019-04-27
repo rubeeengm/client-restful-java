@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
-import itver.edu.NewJerseyClient;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
@@ -18,10 +13,6 @@ import modelo.Modelo;
 import vista.Formulario;
 import vista.Vista;
 
-/**
- *
- * @author lasergun
- */
 public class NewMain implements ActionListener{
     public Modelo m;
     public JFrame f;
@@ -34,6 +25,9 @@ public class NewMain implements ActionListener{
     private String carrera ;
     private String semestre;
     private int selectedRow = -1;
+    
+    private boolean registro;
+    private String id;
 
     public NewMain() {
         m = new Modelo();
@@ -43,33 +37,17 @@ public class NewMain implements ActionListener{
         eventoTabla();
     }
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
         NewMain main = new NewMain();
         
-        //m.eliminar("11");
-        //m.client = new NewJerseyClient();
-        
-////        m.client.edit_XML("<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
-////            "   <alumnos> \n" +
-////            "   <apellidoMaterno>"+"Málaga"+"</apellidoMaterno> \n" +
-////            "       <apellidoPaterno>"+"Ponce"+"</apellidoPaterno> \n" +
-////            "       <carrera>"+"Ing. Sistemas"+"</carrera> \n" +
-////            "       <idAlumnos>"+"13"+"</idAlumnos> \n" +
-////            "       <nombre>"+"Ruben"+"</nombre> \n" +
-////            "       <semestre>"+"10"+"</semestre> \n" +
-////            "   </alumnos> ", "13");
-        main.m.recuperarAlumnos();
-        
-        main.v.getBtnCrear().addActionListener(main);
         main.form.getBtnRegistrar().addActionListener(main);
+        main.v.getBtnCrear().addActionListener(main);
         main.v.getBtnEliminar().addActionListener(main);
+        main.v.getBtnActualizar().addActionListener(main);
+        main.m.recuperarAlumnos();
         main.v.setData(main.m.getData());
         main.v.cargarTabla();
-        //n.setVisible(true);
+        
         main.f.add(main.v);
         main.f.setSize(700, 400);
         main.f.setVisible(true);
@@ -94,30 +72,57 @@ public class NewMain implements ActionListener{
             form.getTxfApellidoMaterno().setText("");
             form.getTxfCarrera().setText("");
             form.getTxfSemestre().setText("");
+            form.setTitle("Crear nuevo registro");
+            form.getBtnRegistrar().setText("Registrar");
             form.setVisible(true);
+            registro = true;
         }
         
         if (form.getBtnRegistrar() == e.getSource()) {
             if(camposLlenos()){
-                m.crear(new Alumno(this.nombre, this.apellidoPaterno, this.apellidoMaterno, this.carrera, this.semestre));
+                if(registro)
+                    m.crear(new Alumno(this.nombre, this.apellidoPaterno, this.apellidoMaterno, this.carrera, this.semestre));
+                else{
+                    Vector objeto = (Vector) this.v.getModelo().getDataVector().get(selectedRow);
+                    id = String.valueOf(objeto.get(0));
+                    m.editar(new Alumno(this.id, this.nombre, this.apellidoPaterno, this.apellidoMaterno, this.carrera, this.semestre));
+                }
+                
                 m.recuperarAlumnos();
                 v.setData(m.getData());
-                //v.getModelo().setRowCount(0);
                 v.cargarTabla();
                 form.setVisible(false);
             } else
                 JOptionPane.showMessageDialog(null,"Rellena todos los campos!");
         }
         
+        if (v.getBtnActualizar()== e.getSource()) {
+            if (selectedRow > -1){
+                Vector objeto = (Vector) this.v.getModelo().getDataVector().get(selectedRow);
+                
+                form.getTxfNombre().setText(String.valueOf(objeto.get(1)));
+                form.getTxfApellidoPaterno().setText(String.valueOf(objeto.get(2)));
+                form.getTxfApellidoMaterno().setText(String.valueOf(objeto.get(3)));
+                form.getTxfCarrera().setText(String.valueOf(objeto.get(4)));
+                form.getTxfSemestre().setText(String.valueOf(objeto.get(5)));
+                form.setTitle("Actualizar registro");
+                form.getBtnRegistrar().setText("Actualizar");
+                form.setVisible(true);
+                registro = false;
+            } else
+                JOptionPane.showMessageDialog(null,"Debes seleccionar un registro");
+        }
+        
         if(v.getBtnEliminar() == e.getSource()){
             if (selectedRow > -1){
-                m.eliminar(String.valueOf(selectedRow));
+                Vector objeto = (Vector) this.v.getModelo().getDataVector().get(selectedRow);
+                id = String.valueOf(objeto.get(0));
+                m.eliminar(id);
                 m.recuperarAlumnos();
                 v.setData(m.getData());
                 v.cargarTabla();
-            }
-            else
-                JOptionPane.showMessageDialog(null,"Debes selecciona un registro");
+            } else
+                JOptionPane.showMessageDialog(null,"Debes seleccionar un registro");
         }
     }
     
@@ -133,6 +138,5 @@ public class NewMain implements ActionListener{
             return false;
         
         return true;
-    }
-    
+    }   
 }
