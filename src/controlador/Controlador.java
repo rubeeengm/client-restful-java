@@ -13,7 +13,7 @@ import modelo.Modelo;
 import vista.Formulario;
 import vista.Vista;
 
-public class NewMain implements ActionListener{
+public class Controlador implements ActionListener{
     public Modelo m;
     public JFrame f;
     public Vista v;
@@ -29,7 +29,7 @@ public class NewMain implements ActionListener{
     private boolean registro;
     private String id;
 
-    public NewMain() {
+    public Controlador() {
         m = new Modelo();
         f = new JFrame();
         v = new Vista();
@@ -38,7 +38,7 @@ public class NewMain implements ActionListener{
     }
     
     public static void main(String[] args) {
-        NewMain main = new NewMain();
+        Controlador main = new Controlador();
         
         main.form.getBtnRegistrar().addActionListener(main);
         main.v.getBtnCrear().addActionListener(main);
